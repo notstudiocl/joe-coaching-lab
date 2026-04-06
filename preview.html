@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joe Coaching Lab | Coaching Nutricional y Fitness Online</title>
+  <meta name="description" content="Pierde grasa, gana músculo y construye el cuerpo que mereces con coaching 100% online personalizado." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cyan: #00B4D8;
+      --cyan-dark: #0077B6;
+      --cyan-darker: #005f8c;
+      --cyan-light: #90E0EF;
+      --bg: #0a0a0a;
+      --bg2: #0d0d0d;
+      --card: rgba(255,255,255,0.03);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      transition: background 0.3s, border-color 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(12px);
+      border-color: rgba(255,255,255,0.05);
+    }
+    .navbar-inner {
+      max-width: 1152px; margin: 0 auto;
+      padding: 0 1rem; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; text-decoration: none; }
+    .logo .cyan { color: var(--cyan); }
+    .logo .white { color: #fff; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { color: rgba(255,255,255,0.7); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--cyan); }
+    .btn-nav {
+      background: var(--cyan); color: var(--bg);
+      font-weight: 700; font-size: 0.875rem;
+      padding: 0.5rem 1.25rem; border-radius: 9999px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-nav:hover { background: var(--cyan-light); }
+    .btn-nav-mobile {
+      display: none;
+      background: var(--cyan); color: var(--bg);
+      font-weight: 700; font-size: 0.875rem;
+      padding: 0.5rem 1rem; border-radius: 9999px;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .btn-nav-mobile { display: block; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; background: var(--bg);
+      padding: 100px 1rem 56px; overflow: hidden;
+      opacity: 0; animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .hero-glow {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 480px; height: 480px;
+      background: rgba(0,180,216,0.06);
+      border-radius: 50%; filter: blur(100px);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 10; max-width: 512px; margin: 0 auto; text-align: center; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(0,180,216,0.3);
+      background: rgba(0,180,216,0.05);
+      color: var(--cyan-light);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 8px 16px; border-radius: 9999px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.55s ease forwards; opacity: 0;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan); flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; line-height: 1.12;
+      letter-spacing: -0.02em; margin-bottom: 1rem;
+      animation: fadeUp 0.55s 0.08s ease forwards; opacity: 0;
+    }
+    .hero h1 .cyan { color: var(--cyan); }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,0.9); line-height: 1.6;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.55s 0.16s ease forwards; opacity: 0;
+    }
+
+    .video-placeholder {
+      position: relative; width: 100%; aspect-ratio: 16/9;
+      border-radius: 1rem; overflow: hidden;
+      background: #111827; border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 2rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+      animation: fadeUp 0.55s 0.24s ease forwards; opacity: 0;
+    }
+    .video-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    }
+    .play-btn {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(0,180,216,0.15);
+      border: 1px solid rgba(0,180,216,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .play-btn svg { color: var(--cyan); margin-left: 4px; }
+    .video-label { color: rgba(255,255,255,0.3); font-size: 0.75rem; letter-spacing: 0.05em; }
+
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--cyan); color: var(--bg);
+      font-weight: 700; font-size: 0.875rem;
+      padding: 0.75rem 1.75rem; border-radius: 9999px;
+      text-decoration: none; transition: background 0.2s;
+      box-shadow: 0 10px 30px rgba(0,180,216,0.25);
+      animation: fadeUp 0.55s 0.32s ease forwards; opacity: 0;
+    }
+    .btn-cta:hover { background: var(--cyan-dark); }
+    .btn-cta:active { background: var(--cyan-darker); }
+
+    .hero-bottom-fade {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(to top, var(--bg), transparent);
+      pointer-events: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── PLAN ── */
+    .plan { padding: 64px 1rem; background: var(--bg); }
+    .plan-inner { max-width: 512px; margin: 0 auto; }
+    .section-label {
+      color: var(--cyan); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 800; line-height: 1.15; margin-bottom: 2.5rem;
+    }
+    .section-title .cyan { color: var(--cyan); }
+
+    .timeline { position: relative; }
+    .timeline-line {
+      position: absolute; left: 19px; top: 8px; bottom: 8px; width: 1px;
+      background: linear-gradient(to bottom, rgba(0,180,216,0.4), rgba(0,180,216,0.1), transparent);
+    }
+    .step {
+      position: relative; display: flex; gap: 1rem;
+      padding-bottom: 2rem;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step-dot {
+      flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+      background: var(--bg); border: 2px solid rgba(0,180,216,0.5);
+      display: flex; align-items: center; justify-content: center; z-index: 1;
+    }
+    .step-dot span { color: var(--cyan); font-size: 11px; font-weight: 800; }
+    .step-content { padding-top: 6px; }
+    .step-title { color: #fff; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .step-desc { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.6; }
+
+    .btn-full {
+      display: flex; width: 100%;
+      align-items: center; justify-content: center;
+      background: var(--cyan); color: var(--bg);
+      font-weight: 700; font-size: 0.875rem;
+      padding: 0.875rem 1rem; border-radius: 9999px;
+      text-decoration: none; margin-top: 2.5rem;
+      transition: background 0.2s;
+      box-shadow: 0 8px 24px rgba(0,180,216,0.2);
+    }
+    .btn-full:hover { background: var(--cyan-dark); }
+
+    /* ── CASOS DE ÉXITO ── */
+    .exito { padding: 64px 1rem; background: var(--bg2); }
+    .exito-inner { max-width: 512px; margin: 0 auto; }
+    .cards { display: flex; flex-direction: column; gap: 1rem; }
+
+    .card {
+      position: relative; border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--card); padding: 1.25rem;
+      overflow: hidden;
+    }
+    .card-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+    .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+    .avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      color: var(--bg); font-weight: 800; font-size: 0.875rem;
+    }
+    .card-name { color: #fff; font-weight: 700; font-size: 0.875rem; }
+    .card-detail { color: rgba(255,255,255,0.4); font-size: 12px; }
+    .card-badge {
+      margin-left: auto; font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 9999px; border: 1px solid;
+      flex-shrink: 0;
+    }
+    .card-quote {
+      color: rgba(255,255,255,0.65); font-size: 13.5px;
+      line-height: 1.6; font-style: italic;
+    }
+
+    /* ── CONTACTO ── */
+    .contacto { padding: 64px 1rem; background: var(--bg); }
+    .contacto-inner { max-width: 512px; margin: 0 auto; }
+    .form { display: flex; flex-direction: column; gap: 1rem; }
+    .field label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.65); margin-bottom: 6px;
+    }
+    .field label span { color: var(--cyan); }
+    .field input, .field select {
+      width: 100%; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; font-size: 15px; font-family: inherit;
+      border-radius: 0.75rem; padding: 14px 16px;
+      outline: none; transition: border-color 0.2s;
+      appearance: none;
+    }
+    .field input::placeholder { color: rgba(255,255,255,0.2); }
+    .field input:focus, .field select:focus { border-color: var(--cyan); }
+    .field select { cursor: pointer; }
+    .select-wrap { position: relative; }
+    .select-wrap svg {
+      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; color: rgba(255,255,255,0.4);
+    }
+    .btn-submit {
+      width: 100%; background: var(--cyan);
+      color: var(--bg); font-weight: 700; font-size: 15px;
+      font-family: inherit; padding: 1rem; border-radius: 0.75rem;
+      border: none; cursor: pointer; transition: background 0.2s;
+      margin-top: 8px;
+      box-shadow: 0 8px 24px rgba(0,180,216,0.2);
+    }
+    .btn-submit:hover { background: var(--cyan-dark); }
+    .form-note { text-align: center; color: rgba(255,255,255,0.25); font-size: 12px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg); border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2.5rem 1rem;
+    }
+    .footer-inner {
+      max-width: 1152px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 1rem;
+      font-size: 0.875rem; color: rgba(255,255,255,0.35);
+    }
+    .footer-logo { font-weight: 700; font-size: 1rem; }
+    .footer-logo .cyan { color: var(--cyan); }
+    footer a { color: var(--cyan); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    footer a:hover { color: var(--cyan-light); }
+
+    /* ── FLOATING CTA ── */
+    .floating-cta {
+      position: fixed; bottom: 24px; right: 20px; z-index: 50;
+      opacity: 0; transform: scale(0.8) translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+    .floating-cta.visible {
+      opacity: 1; transform: scale(1) translateY(0);
+      pointer-events: auto;
+    }
+    .floating-cta a {
+      position: relative; display: flex; align-items: center; gap: 8px;
+      background: var(--cyan); color: var(--bg);
+      font-weight: 700; font-size: 0.875rem;
+      padding: 0.875rem 1.25rem; border-radius: 9999px;
+      text-decoration: none; transition: background 0.2s;
+      box-shadow: 0 12px 32px rgba(0,180,216,0.3);
+    }
+    .floating-cta a:hover { background: var(--cyan-dark); }
+    .ping-wrapper {
+      position: absolute; top: -4px; right: -4px;
+      width: 12px; height: 12px;
+    }
+    .ping {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: var(--cyan-light); opacity: 0.75;
+      animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;
+    }
+    .ping-dot {
+      position: relative; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--cyan);
+    }
+    @keyframes ping {
+      75%, 100% { transform: scale(2); opacity: 0; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.07s; }
+    .reveal-delay-2 { transition-delay: 0.14s; }
+    .reveal-delay-3 { transition-delay: 0.21s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="logo">
+        <span class="cyan">Joe</span> <span class="white">Coaching Lab</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#plan">El Plan</a>
+        <a href="#exito">Resultados</a>
+        <a href="#contacto" class="btn-nav">Empieza ya</a>
+      </nav>
+      <a href="#contacto" class="btn-nav-mobile">Empieza ya</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Si estás listo/a para dejar las excusas y seguir un plan real, este es tu lugar
+      </div>
+
+      <h1>
+        Entrena con Estrategia,
+        <span class="cyan">deja el Estancamiento Atrás</span>
+      </h1>
+
+      <p>
+        Pierde grasa, gana músculo y construye un cuerpo que realmente refleje tu esfuerzo.
+      </p>
+
+      <div class="video-placeholder">
+        <div class="video-inner">
+          <div class="play-btn">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <span class="video-label">Tu video aquí</span>
+        </div>
+      </div>
+
+      <a href="#contacto" class="btn-cta">
+        Quiero mi plan personalizado
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-bottom-fade"></div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="plan" class="plan">
+    <div class="plan-inner">
+      <div class="reveal">
+        <p class="section-label">Método Joe coaching lab</p>
+        <h2 class="section-title">Plan que<br><span class="cyan">aplicaremos</span></h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-line"></div>
+
+        <div class="step reveal">
+          <div class="step-dot"><span>01</span></div>
+          <div class="step-content">
+            <p class="step-title">Primer acercamiento, ¡conozcámonos!</p>
+            <p class="step-desc">Analizamos tu punto de partida: historial, hábitos, objetivos y estilo de vida. Sin este paso, cualquier plan es genérico.</p>
+          </div>
+        </div>
+
+        <div class="step reveal reveal-delay-1">
+          <div class="step-dot"><span>02</span></div>
+          <div class="step-content">
+            <p class="step-title">Estructurar planificación adaptada a ti y tu estilo de vida</p>
+            <p class="step-desc">Diseñamos un programa de entrenamiento y nutrición hecho a tu medida, que encaja con tu rutina, tus tiempos y lo que realmente puedes sostener.</p>
+          </div>
+        </div>
+
+        <div class="step reveal reveal-delay-2">
+          <div class="step-dot"><span>03</span></div>
+          <div class="step-content">
+            <p class="step-title">Empezamos a construir tu proceso físico y mental</p>
+            <p class="step-desc">Ponemos el plan en acción trabajando tanto el cuerpo como la mentalidad: hábitos, disciplina y constancia son la base del cambio real.</p>
+          </div>
+        </div>
+
+        <div class="step reveal reveal-delay-3">
+          <div class="step-dot"><span>04</span></div>
+          <div class="step-content">
+            <p class="step-title">Proceso activo</p>
+            <p class="step-desc">Ejecutas el plan y vamos optimizando semana a semana en base a tu rendimiento y resultados.</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="#contacto" class="btn-full reveal">Empezar ahora</a>
+    </div>
+  </section>
+
+  <!-- CASOS DE ÉXITO -->
+  <section id="exito" class="exito">
+    <div class="exito-inner">
+      <div class="reveal">
+        <p class="section-label">Resultados reales</p>
+        <h2 class="section-title" style="margin-bottom:2rem">Lo que dicen<br><span class="cyan">mis clientes</span></h2>
+      </div>
+
+      <div class="cards">
+        <!-- Marcos -->
+        <div class="card reveal">
+          <div class="card-accent" style="background: linear-gradient(90deg, transparent, rgba(0,180,216,0.38), transparent)"></div>
+          <div class="card-header">
+            <div class="avatar" style="background:#00B4D8">MD</div>
+            <div>
+              <p class="card-name">Marcos D.</p>
+              <p class="card-detail">28 años · Volumen muscular</p>
+            </div>
+            <span class="card-badge" style="color:#00B4D8;border-color:rgba(0,180,216,0.25);background:rgba(0,180,216,0.1)">+8 kg músculo</span>
+          </div>
+          <blockquote class="card-quote">&ldquo;Llevaba 2 años en el gym sin ver cambios reales. Con Joe entendí que el problema no era el esfuerzo, sino el método. En 12 semanas gané más músculo que en todo ese tiempo.&rdquo;</blockquote>
+        </div>
+
+        <!-- Laura -->
+        <div class="card reveal reveal-delay-1">
+          <div class="card-accent" style="background: linear-gradient(90deg, transparent, rgba(0,119,182,0.38), transparent)"></div>
+          <div class="card-header">
+            <div class="avatar" style="background:#0077B6">LG</div>
+            <div>
+              <p class="card-name">Laura G.</p>
+              <p class="card-detail">24 años · Recomposición corporal</p>
+            </div>
+            <span class="card-badge" style="color:#0077B6;border-color:rgba(0,119,182,0.25);background:rgba(0,119,182,0.1)">−6 kg grasa</span>
+          </div>
+          <blockquote class="card-quote">&ldquo;Siempre pensé que comer bien era complicado. Joe me mostró que no tiene por qué serlo. Bajé grasa y gané tono sin pasar hambre. El seguimiento semanal es lo que marca la diferencia.&rdquo;</blockquote>
+        </div>
+
+        <!-- Carlos -->
+        <div class="card reveal reveal-delay-2">
+          <div class="card-accent" style="background: linear-gradient(90deg, transparent, rgba(72,202,228,0.38), transparent)"></div>
+          <div class="card-header">
+            <div class="avatar" style="background:#48CAE4">CR</div>
+            <div>
+              <p class="card-name">Carlos R.</p>
+              <p class="card-detail">31 años · Pérdida de grasa</p>
+            </div>
+            <span class="card-badge" style="color:#48CAE4;border-color:rgba(72,202,228,0.25);background:rgba(72,202,228,0.1)">−11 kg en 4 meses</span>
+          </div>
+          <blockquote class="card-quote">&ldquo;Intenté mil dietas y nada funcionaba a largo plazo. El plan de Joe es sostenible, no una tortura. Cuatro meses después y sigo avanzando sin rebote.&rdquo;</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contacto">
+    <div class="contacto-inner">
+      <div class="reveal" style="margin-bottom:2rem">
+        <p class="section-label">Da el primer paso</p>
+        <h2 class="section-title" style="margin-bottom:0.75rem">¿Listo para<br><span class="cyan">transformarte?</span></h2>
+        <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.6">Déjame tus datos y me pongo en contacto contigo en menos de 24h para hablar de tu plan.</p>
+      </div>
+
+      <form class="form reveal" id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="field">
+          <label for="nombre">Nombre <span>*</span></label>
+          <input type="text" id="nombre" name="nombre" placeholder="¿Cómo te llamas?" autocomplete="given-name" required />
+        </div>
+        <div class="field">
+          <label for="whatsapp">WhatsApp <span>*</span></label>
+          <input type="tel" id="whatsapp" name="whatsapp" placeholder="+34 600 000 000" autocomplete="tel" required />
+        </div>
+        <div class="field">
+          <label for="objetivo">¿Cuál es tu objetivo? <span>*</span></label>
+          <div class="select-wrap">
+            <select id="objetivo" name="objetivo" required>
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option>Ganar músculo</option>
+              <option>Perder grasa</option>
+              <option>Recomposición corporal</option>
+              <option>Mejorar mi alimentación</option>
+              <option>Mejorar mi rendimiento deportivo</option>
+              <option>Otro</option>
+            </select>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Enviar y empezar mi plan</button>
+        <p class="form-note">Sin spam. Solo te contacto para hablar de tu plan.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-logo"><span class="cyan">Joe</span> Coaching Lab</p>
+      <p>© 2026 Joe Coaching Lab. Todos los derechos reservados.</p>
+      <a href="#contacto">Empieza tu plan →</a>
+    </div>
+  </footer>
+
+  <!-- FLOATING CTA -->
+  <div class="floating-cta" id="floatingCTA">
+    <a href="#contacto" aria-label="Contactar con Joe">
+      <span class="ping-wrapper">
+        <span class="ping"></span>
+        <span class="ping-dot"></span>
+      </span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      Contáctame
+    </a>
+  </div>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Floating CTA
+    const floatingCTA = document.getElementById('floatingCTA');
+    window.addEventListener('scroll', () => {
+      floatingCTA.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '-50px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      const whatsapp = document.getElementById('whatsapp').value;
+      const objetivo = document.getElementById('objetivo').value;
+      const body = `Nombre: ${nombre}%0AWhatsApp: ${whatsapp}%0AObjetivo: ${objetivo}`;
+      window.location.href = `mailto:joe@joecoachinglab.com?subject=Quiero empezar mi plan — ${encodeURIComponent(objetivo)}&body=${body}`;
+    }
+  </script>
+</body>
+</html>
