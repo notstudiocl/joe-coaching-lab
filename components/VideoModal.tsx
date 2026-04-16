@@ -141,7 +141,7 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
                 <input
                   id="modal-telefono"
                   type="tel"
-                  placeholder="+34 600 000 000"
+                  placeholder="+569 XXXX XXXX"
                   autoComplete="tel"
                   {...register("telefono", { required: "El teléfono es obligatorio" })}
                   className="w-full bg-white/5 border border-white/10 focus:border-[#00B4D8] text-white text-[15px] placeholder-white/20 rounded-xl px-4 py-3.5 outline-none transition-colors duration-200"

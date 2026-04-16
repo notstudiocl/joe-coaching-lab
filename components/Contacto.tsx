@@ -113,7 +113,7 @@ export default function Contacto() {
               <input
                 id="whatsapp"
                 type="tel"
-                placeholder="+34 600 000 000"
+                placeholder="+569 XXXX XXXX"
                 autoComplete="tel"
                 {...register("whatsapp", {
                   required: "El WhatsApp es obligatorio",
