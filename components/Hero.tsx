@@ -13,9 +13,10 @@ function fadeUp(delay: number) {
 
 interface Props {
   videoUnlocked: boolean;
+  onUnlock: () => void;
 }
 
-export default function Hero({ videoUnlocked }: Props) {
+export default function Hero({ videoUnlocked, onUnlock }: Props) {
   return (
     <section id="hero" className="relative bg-[#0a0a0a] pt-20 pb-14 px-4 overflow-hidden">
       {/* Glow de fondo */}
@@ -50,7 +51,7 @@ export default function Hero({ videoUnlocked }: Props) {
 
         {/* Video */}
         <motion.div {...fadeUp(0.24)} className="mb-8">
-          <VideoLeadGate videoUnlocked={videoUnlocked} />
+          <VideoLeadGate videoUnlocked={videoUnlocked} onUnlock={onUnlock} />
         </motion.div>
 
         {/* CTA */}

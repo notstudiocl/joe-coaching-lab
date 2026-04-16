@@ -10,9 +10,9 @@ export default function LandingClient() {
 
   return (
     <>
-      <Hero videoUnlocked={videoUnlocked} />
+      <Hero videoUnlocked={videoUnlocked} onUnlock={() => setVideoUnlocked(true)} />
       <Plan />
-      <Contacto onUnlock={() => setVideoUnlocked(true)} />
+      <Contacto />
     </>
   );
 }

@@ -7,13 +7,16 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: (nombre: string, telefono: string) => void;
+  onSuccess: () => void;
 }
 
 interface FormValues {
   nombre: string;
   telefono: string;
 }
+
+const GAS_URL =
+  "https://script.google.com/macros/s/AKfycbzPRUX1jsCyQpRLxYzhRuGoN1QK_JeSSGgTKsiXLda-m0P4cidbe4J39BgcUMD2iyh4wQ/exec";
 
 export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
   const {
@@ -24,7 +27,6 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
 
   const firstInputRef = useRef<HTMLInputElement>(null);
 
-  // Bloquear scroll del body mientras el modal está abierto
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -37,7 +39,6 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
     };
   }, [isOpen]);
 
-  // Cerrar con Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -46,11 +47,14 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const onSubmit: SubmitHandler<FormValues> = ({ nombre, telefono }) => {
-    localStorage.setItem("jcl_lead", JSON.stringify({ nombre, telefono }));
-    const text = `🔔 Nuevo lead - Joe Coaching Lab\nNombre: ${nombre}\nWhatsApp: ${telefono}`;
-    window.open(`https://wa.me/56933495506?text=${encodeURIComponent(text)}`, "_blank");
-    onSuccess(nombre, telefono);
+  const onSubmit: SubmitHandler<FormValues> = async ({ nombre, telefono }) => {
+    await fetch(GAS_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre, whatsapp: telefono }),
+    });
+    onSuccess();
   };
 
   return (
@@ -75,7 +79,6 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
             transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
             className="relative w-full max-w-[420px] bg-[#111] border border-white/8 rounded-2xl p-7 shadow-2xl shadow-black/60"
           >
-            {/* Botón cerrar */}
             <button
               onClick={onClose}
               aria-label="Cerrar"
@@ -84,28 +87,25 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
               ×
             </button>
 
-            {/* Encabezado */}
             <p className="text-[#00B4D8] text-[11px] font-bold tracking-widest uppercase mb-2.5">
-              Acceso al video
+              Acceso exclusivo
             </p>
             <h2
               id="video-modal-title"
               className="text-[1.3rem] font-extrabold leading-snug tracking-tight mb-2"
             >
-              Antes de ver el video...
+              ¿Listo para ver el método?
             </h2>
             <p className="text-white/50 text-[13.5px] leading-relaxed mb-6">
-              y ver cómo otras personas transformaron su cuerpo y mente,{" "}
-              <strong className="text-white/75">completa tus datos.</strong>
+              Déjanos tus datos y accede al video donde te explicamos{" "}
+              <strong className="text-white/75">cómo funciona el plan.</strong>
             </p>
 
-            {/* Formulario */}
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
               className="space-y-3.5"
             >
-              {/* Nombre */}
               <div>
                 <label
                   htmlFor="modal-nombre"
@@ -130,20 +130,19 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
                 )}
               </div>
 
-              {/* Teléfono */}
               <div>
                 <label
                   htmlFor="modal-telefono"
                   className="block text-[13px] font-semibold text-white/65 mb-1.5"
                 >
-                  WhatsApp / Teléfono <span className="text-[#00B4D8]">*</span>
+                  WhatsApp <span className="text-[#00B4D8]">*</span>
                 </label>
                 <input
                   id="modal-telefono"
                   type="tel"
                   placeholder="+569 XXXX XXXX"
                   autoComplete="tel"
-                  {...register("telefono", { required: "El teléfono es obligatorio" })}
+                  {...register("telefono", { required: "El WhatsApp es obligatorio" })}
                   className="w-full bg-white/5 border border-white/10 focus:border-[#00B4D8] text-white text-[15px] placeholder-white/20 rounded-xl px-4 py-3.5 outline-none transition-colors duration-200"
                 />
                 {errors.telefono && (
@@ -151,22 +150,17 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
                 )}
               </div>
 
-              {/* CTA */}
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full flex items-center justify-center gap-2 bg-[#00B4D8] hover:bg-[#0077B6] disabled:opacity-60 text-[#0a0a0a] font-bold text-[15px] py-3.5 rounded-xl transition-colors duration-200 shadow-lg shadow-[#00B4D8]/20 mt-1"
               >
-                Ver el video ahora
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+                {isSubmitting ? "Enviando..." : "Ver el video"}
+                {!isSubmitting && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                )}
               </button>
 
               <p className="text-center text-white/22 text-[11.5px] pt-1">
