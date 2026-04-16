@@ -39,7 +39,7 @@ export default function VideoLeadGate() {
           id={VIDEO_ID}
           title="Joe Coaching Lab"
           poster="maxresdefault"
-          params="autoplay=1"
+          params="autoplay=1&modestbranding=1&rel=0&iv_load_policy=3&color=white"
         />
       </div>
     );
