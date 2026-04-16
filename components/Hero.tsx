@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+import VideoLeadGate from "@/components/VideoLeadGate";
 
 function fadeUp(delay: number) {
   return {
@@ -48,13 +47,7 @@ export default function Hero() {
 
         {/* Video */}
         <motion.div {...fadeUp(0.24)} className="mb-8">
-          <div className="rounded-2xl overflow-hidden border border-white/8 shadow-2xl shadow-black/40">
-            <LiteYouTubeEmbed
-              id="wMaZ-yzk1jI"
-              title="Joe Coaching Lab"
-              poster="maxresdefault"
-            />
-          </div>
+          <VideoLeadGate />
         </motion.div>
 
         {/* CTA */}
