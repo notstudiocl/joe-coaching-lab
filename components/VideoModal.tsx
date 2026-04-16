@@ -48,6 +48,8 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
 
   const onSubmit: SubmitHandler<FormValues> = ({ nombre, telefono }) => {
     localStorage.setItem("jcl_lead", JSON.stringify({ nombre, telefono }));
+    const text = `🔔 Nuevo lead - Joe Coaching Lab\nNombre: ${nombre}\nWhatsApp: ${telefono}`;
+    window.open(`https://wa.me/56933495506?text=${encodeURIComponent(text)}`, "_blank");
     onSuccess(nombre, telefono);
   };
 

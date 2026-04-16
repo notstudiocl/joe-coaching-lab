@@ -19,8 +19,8 @@ export default function Contacto() {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const body = `Nombre: ${data.nombre}%0AWhatsApp: ${data.whatsapp}`;
-    window.location.href = `mailto:joe@joecoachinglab.com?subject=Quiero empezar mi plan&body=${body}`;
+    const text = `🔔 Nuevo lead - Joe Coaching Lab\nNombre: ${data.nombre}\nWhatsApp: ${data.whatsapp}`;
+    window.open(`https://wa.me/56933495506?text=${encodeURIComponent(text)}`, "_blank");
     setEnviado(true);
   };
 
