@@ -18,7 +18,16 @@ export default function Contacto() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbzPRUX1jsCyQpRLxYzhRuGoN1QK_JeSSGgTKsiXLda-m0P4cidbe4J39BgcUMD2iyh4wQ/exec",
+      {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre: data.nombre, whatsapp: data.whatsapp }),
+      }
+    );
     const text = `🔔 Nuevo lead - Joe Coaching Lab\nNombre: ${data.nombre}\nWhatsApp: ${data.whatsapp}`;
     window.open(`https://wa.me/56933495506?text=${encodeURIComponent(text)}`, "_blank");
     setEnviado(true);
