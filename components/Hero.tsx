@@ -11,10 +11,13 @@ function fadeUp(delay: number) {
   };
 }
 
-export default function Hero() {
+interface Props {
+  videoUnlocked: boolean;
+}
 
+export default function Hero({ videoUnlocked }: Props) {
   return (
-    <section className="relative bg-[#0a0a0a] pt-20 pb-14 px-4 overflow-hidden">
+    <section id="hero" className="relative bg-[#0a0a0a] pt-20 pb-14 px-4 overflow-hidden">
       {/* Glow de fondo */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[480px] h-[480px] bg-[#00B4D8]/8 rounded-full blur-[100px] pointer-events-none" />
 
@@ -47,7 +50,7 @@ export default function Hero() {
 
         {/* Video */}
         <motion.div {...fadeUp(0.24)} className="mb-8">
-          <VideoLeadGate />
+          <VideoLeadGate videoUnlocked={videoUnlocked} />
         </motion.div>
 
         {/* CTA */}

@@ -1,38 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
-import VideoModal from "@/components/VideoModal";
 
-const LS_KEY = "jcl_lead";
 const VIDEO_ID = "wMaZ-yzk1jI";
 
-export default function VideoLeadGate() {
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+interface Props {
+  videoUnlocked: boolean;
+}
 
-  useEffect(() => {
-    if (localStorage.getItem(LS_KEY)) {
-      setHasSubmitted(true);
-    }
-  }, []);
-
-  const handlePlayClick = () => {
-    if (localStorage.getItem(LS_KEY)) {
-      setHasSubmitted(true);
-    } else {
-      setModalOpen(true);
-    }
+export default function VideoLeadGate({ videoUnlocked }: Props) {
+  const handleClick = () => {
+    document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleModalSuccess = () => {
-    setModalOpen(false);
-    setHasSubmitted(true);
-  };
-
-  if (hasSubmitted) {
+  if (videoUnlocked) {
     return (
       <div className="rounded-2xl overflow-hidden border border-white/8 shadow-2xl shadow-black/40">
         <LiteYouTubeEmbed
@@ -46,27 +29,29 @@ export default function VideoLeadGate() {
   }
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={handlePlayClick}
-        aria-label="Ver el video"
-        className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/8 shadow-2xl shadow-black/40 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00B4D8]"
-      >
-        <Image
-          src={`https://i.ytimg.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
-          alt="Miniatura del video Joe Coaching Lab"
-          fill
-          className="object-cover"
-          unoptimized
-        />
-        {/* Overlay oscuro */}
-        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-200" />
-        {/* Boton de play */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 rounded-full bg-[#00B4D8]/20 border border-[#00B4D8]/50 flex items-center justify-center group-hover:bg-[#00B4D8]/35 group-hover:border-[#00B4D8]/80 transition-colors duration-200">
+    <button
+      type="button"
+      onClick={handleClick}
+      aria-label="Déjanos tus datos para ver el video"
+      className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/8 shadow-2xl shadow-black/40 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00B4D8]"
+    >
+      <Image
+        src={`https://i.ytimg.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
+        alt="Miniatura del video Joe Coaching Lab"
+        fill
+        className="object-cover"
+        unoptimized
+      />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/55 group-hover:bg-black/45 transition-colors duration-200" />
+
+      {/* Contenido centrado */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4">
+        {/* Icono play con candado */}
+        <div className="relative">
+          <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-[#00B4D8]/20 group-hover:border-[#00B4D8]/40 transition-colors duration-200">
             <svg
-              className="w-7 h-7 text-[#00B4D8] ml-1"
+              className="w-7 h-7 text-white/50 group-hover:text-[#00B4D8] ml-1 transition-colors duration-200"
               viewBox="0 0 24 24"
               fill="currentColor"
               aria-hidden="true"
@@ -74,14 +59,31 @@ export default function VideoLeadGate() {
               <path d="M8 5v14l11-7z" />
             </svg>
           </div>
+          {/* Candado */}
+          <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#0a0a0a] border border-white/20 flex items-center justify-center">
+            <svg
+              className="w-2.5 h-2.5 text-white/60"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </div>
         </div>
-      </button>
 
-      <VideoModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onSuccess={handleModalSuccess}
-      />
-    </>
+        <p className="text-white/80 text-sm font-semibold tracking-wide text-center leading-snug">
+          Déjanos tus datos para ver el video
+        </p>
+        <p className="text-[#00B4D8] text-[11px] font-bold tracking-widest uppercase">
+          Ir al formulario →
+        </p>
+      </div>
+    </button>
   );
 }

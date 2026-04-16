@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
 
@@ -9,9 +8,11 @@ interface FormValues {
   whatsapp: string;
 }
 
-export default function Contacto() {
-  const [enviado, setEnviado] = useState(false);
+interface Props {
+  onUnlock: () => void;
+}
 
+export default function Contacto({ onUnlock }: Props) {
   const {
     register,
     handleSubmit,
@@ -28,9 +29,10 @@ export default function Contacto() {
         body: JSON.stringify({ nombre: data.nombre, whatsapp: data.whatsapp }),
       }
     );
-    const text = `🔔 Nuevo lead - Joe Coaching Lab\nNombre: ${data.nombre}\nWhatsApp: ${data.whatsapp}`;
-    window.open(`https://wa.me/56933495506?text=${encodeURIComponent(text)}`, "_blank");
-    setEnviado(true);
+    onUnlock();
+    setTimeout(() => {
+      document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   };
 
   return (
@@ -58,24 +60,8 @@ export default function Contacto() {
           </p>
         </motion.div>
 
-        {/* Formulario o confirmación */}
-        {enviado ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.35 }}
-            className="text-center py-14 px-6 rounded-2xl border border-[#00B4D8]/20 bg-[#00B4D8]/5"
-          >
-            <div className="text-5xl mb-4">🎉</div>
-            <h3 className="text-xl font-bold text-white mb-2">
-              ¡Mensaje recibido!
-            </h3>
-            <p className="text-white/50 text-sm">
-              Te escribo en menos de 24h. Prepárate para empezar.
-            </p>
-          </motion.div>
-        ) : (
-          <motion.form
+        {/* Formulario */}
+        <motion.form
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
@@ -154,7 +140,6 @@ export default function Contacto() {
               Joe Coaching Lab
             </p>
           </motion.form>
-        )}
       </div>
     </section>
   );
