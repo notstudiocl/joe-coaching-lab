@@ -212,38 +212,6 @@
     }
     .btn-full:hover { background: var(--cyan-dark); }
 
-    /* ── CASOS DE ÉXITO ── */
-    .exito { padding: 64px 1rem; background: var(--bg2); }
-    .exito-inner { max-width: 512px; margin: 0 auto; }
-    .cards { display: flex; flex-direction: column; gap: 1rem; }
-
-    .card {
-      position: relative; border-radius: 1rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: var(--card); padding: 1.25rem;
-      overflow: hidden;
-    }
-    .card-accent {
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    }
-    .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
-    .avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-      color: var(--bg); font-weight: 800; font-size: 0.875rem;
-    }
-    .card-name { color: #fff; font-weight: 700; font-size: 0.875rem; }
-    .card-detail { color: rgba(255,255,255,0.4); font-size: 12px; }
-    .card-badge {
-      margin-left: auto; font-size: 11px; font-weight: 700;
-      padding: 4px 10px; border-radius: 9999px; border: 1px solid;
-      flex-shrink: 0;
-    }
-    .card-quote {
-      color: rgba(255,255,255,0.65); font-size: 13.5px;
-      line-height: 1.6; font-style: italic;
-    }
-
     /* ── CONTACTO ── */
     .contacto { padding: 64px 1rem; background: var(--bg); }
     .contacto-inner { max-width: 512px; margin: 0 auto; }
@@ -342,6 +310,104 @@
     .reveal-delay-1 { transition-delay: 0.07s; }
     .reveal-delay-2 { transition-delay: 0.14s; }
     .reveal-delay-3 { transition-delay: 0.21s; }
+
+    /* ── VIDEO CLICKABLE ── */
+    .video-placeholder { cursor: pointer; }
+    .video-placeholder:hover .play-btn {
+      background: rgba(0,180,216,0.28);
+      border-color: rgba(0,180,216,0.6);
+    }
+
+    /* ── LEAD MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1; pointer-events: auto;
+    }
+    .modal {
+      position: relative;
+      background: #111; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.25rem; padding: 2rem 1.75rem;
+      width: 100%; max-width: 420px;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.25s ease;
+      box-shadow: 0 32px 64px rgba(0,0,0,0.6);
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5); border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem; line-height: 1;
+      transition: background 0.2s, color 0.2s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .modal-eyebrow {
+      color: var(--cyan); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .modal-title {
+      font-size: 1.35rem; font-weight: 800; line-height: 1.2;
+      letter-spacing: -0.02em; margin-bottom: 8px;
+    }
+    .modal-subtitle {
+      color: rgba(255,255,255,0.5); font-size: 13.5px; line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .modal-subtitle strong { color: rgba(255,255,255,0.75); }
+    .modal-form { display: flex; flex-direction: column; gap: 0.875rem; }
+    .modal-form label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.65); margin-bottom: 6px;
+    }
+    .modal-form label span { color: var(--cyan); }
+    .modal-form input {
+      width: 100%; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; font-size: 15px; font-family: inherit;
+      border-radius: 0.75rem; padding: 13px 16px;
+      outline: none; transition: border-color 0.2s;
+    }
+    .modal-form input::placeholder { color: rgba(255,255,255,0.2); }
+    .modal-form input:focus { border-color: var(--cyan); }
+    .modal-btn {
+      width: 100%; background: var(--cyan);
+      color: var(--bg); font-weight: 700; font-size: 15px;
+      font-family: inherit; padding: 0.9rem 1rem;
+      border-radius: 0.75rem; border: none; cursor: pointer;
+      transition: background 0.2s; margin-top: 4px;
+      box-shadow: 0 8px 24px rgba(0,180,216,0.22);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .modal-btn:hover { background: var(--cyan-dark); }
+    .modal-note {
+      text-align: center; color: rgba(255,255,255,0.22);
+      font-size: 11.5px; margin-top: 10px;
+    }
+
+    /* ── YOUTUBE EMBED ── */
+    .video-embed {
+      position: relative; width: 100%; aspect-ratio: 16/9;
+      border-radius: 1rem; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 2rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    }
+    .video-embed iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: none;
+    }
   </style>
 </head>
 <body>
@@ -366,7 +432,6 @@
     <div class="hero-glow"></div>
     <div class="hero-content">
       <div class="badge">
-        <span class="badge-dot"></span>
         Si estás listo/a para dejar las excusas y seguir un plan real, este es tu lugar
       </div>
 
@@ -396,6 +461,7 @@
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
+      <p style="margin-top:1rem;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.18);user-select:none;">Joe Coaching Lab</p>
     </div>
     <div class="hero-bottom-fade"></div>
   </section>
@@ -445,59 +511,12 @@
       </div>
 
       <a href="#contacto" class="btn-full reveal">Empezar ahora</a>
-    </div>
-  </section>
 
-  <!-- CASOS DE ÉXITO -->
-  <section id="exito" class="exito">
-    <div class="exito-inner">
-      <div class="reveal">
-        <p class="section-label">Resultados reales</p>
-        <h2 class="section-title" style="margin-bottom:2rem">Lo que dicen<br><span class="cyan">mis clientes</span></h2>
-      </div>
-
-      <div class="cards">
-        <!-- Marcos -->
-        <div class="card reveal">
-          <div class="card-accent" style="background: linear-gradient(90deg, transparent, rgba(0,180,216,0.38), transparent)"></div>
-          <div class="card-header">
-            <div class="avatar" style="background:#00B4D8">MD</div>
-            <div>
-              <p class="card-name">Marcos D.</p>
-              <p class="card-detail">28 años · Volumen muscular</p>
-            </div>
-            <span class="card-badge" style="color:#00B4D8;border-color:rgba(0,180,216,0.25);background:rgba(0,180,216,0.1)">+8 kg músculo</span>
-          </div>
-          <blockquote class="card-quote">&ldquo;Llevaba 2 años en el gym sin ver cambios reales. Con Joe entendí que el problema no era el esfuerzo, sino el método. En 12 semanas gané más músculo que en todo ese tiempo.&rdquo;</blockquote>
-        </div>
-
-        <!-- Laura -->
-        <div class="card reveal reveal-delay-1">
-          <div class="card-accent" style="background: linear-gradient(90deg, transparent, rgba(0,119,182,0.38), transparent)"></div>
-          <div class="card-header">
-            <div class="avatar" style="background:#0077B6">LG</div>
-            <div>
-              <p class="card-name">Laura G.</p>
-              <p class="card-detail">24 años · Recomposición corporal</p>
-            </div>
-            <span class="card-badge" style="color:#0077B6;border-color:rgba(0,119,182,0.25);background:rgba(0,119,182,0.1)">−6 kg grasa</span>
-          </div>
-          <blockquote class="card-quote">&ldquo;Siempre pensé que comer bien era complicado. Joe me mostró que no tiene por qué serlo. Bajé grasa y gané tono sin pasar hambre. El seguimiento semanal es lo que marca la diferencia.&rdquo;</blockquote>
-        </div>
-
-        <!-- Carlos -->
-        <div class="card reveal reveal-delay-2">
-          <div class="card-accent" style="background: linear-gradient(90deg, transparent, rgba(72,202,228,0.38), transparent)"></div>
-          <div class="card-header">
-            <div class="avatar" style="background:#48CAE4">CR</div>
-            <div>
-              <p class="card-name">Carlos R.</p>
-              <p class="card-detail">31 años · Pérdida de grasa</p>
-            </div>
-            <span class="card-badge" style="color:#48CAE4;border-color:rgba(72,202,228,0.25);background:rgba(72,202,228,0.1)">−11 kg en 4 meses</span>
-          </div>
-          <blockquote class="card-quote">&ldquo;Intenté mil dietas y nada funcionaba a largo plazo. El plan de Joe es sostenible, no una tortura. Cuatro meses después y sigo avanzando sin rebote.&rdquo;</blockquote>
-        </div>
+      <!-- Separador de marca -->
+      <div style="margin-top:3.5rem;display:flex;align-items:center;gap:1rem;">
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.06)"></div>
+        <span style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.18);user-select:none;white-space:nowrap;">Joe Coaching Lab</span>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.06)"></div>
       </div>
     </div>
   </section>
@@ -520,25 +539,9 @@
           <label for="whatsapp">WhatsApp <span>*</span></label>
           <input type="tel" id="whatsapp" name="whatsapp" placeholder="+34 600 000 000" autocomplete="tel" required />
         </div>
-        <div class="field">
-          <label for="objetivo">¿Cuál es tu objetivo? <span>*</span></label>
-          <div class="select-wrap">
-            <select id="objetivo" name="objetivo" required>
-              <option value="" disabled selected>Selecciona una opción</option>
-              <option>Ganar músculo</option>
-              <option>Perder grasa</option>
-              <option>Recomposición corporal</option>
-              <option>Mejorar mi alimentación</option>
-              <option>Mejorar mi rendimiento deportivo</option>
-              <option>Otro</option>
-            </select>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
-          </div>
-        </div>
         <button type="submit" class="btn-submit">Enviar y empezar mi plan</button>
         <p class="form-note">Sin spam. Solo te contacto para hablar de tu plan.</p>
+        <p style="text-align:center;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.14);user-select:none;margin-top:8px;">Joe Coaching Lab</p>
       </form>
     </div>
   </section>
@@ -551,6 +554,31 @@
       <a href="#contacto">Empieza tu plan →</a>
     </div>
   </footer>
+
+  <!-- LEAD MODAL -->
+  <div class="modal-overlay" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
+      <p class="modal-eyebrow">Acceso al video</p>
+      <h2 class="modal-title" id="modalTitle">Antes de ver el video...</h2>
+      <p class="modal-subtitle">y ver cómo otras personas transformaron su cuerpo y mente, <strong>completa tus datos.</strong></p>
+      <form class="modal-form" id="leadForm">
+        <div>
+          <label for="modalNombre">Nombre <span>*</span></label>
+          <input type="text" id="modalNombre" name="modalNombre" placeholder="¿Cómo te llamas?" autocomplete="given-name" required />
+        </div>
+        <div>
+          <label for="modalTelefono">WhatsApp / Teléfono <span>*</span></label>
+          <input type="tel" id="modalTelefono" name="modalTelefono" placeholder="+34 600 000 000" autocomplete="tel" required />
+        </div>
+        <button type="submit" class="modal-btn">
+          Ver el video ahora
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <p class="modal-note">Tus datos están seguros y no serán compartidos.</p>
+      </form>
+    </div>
+  </div>
 
   <!-- FLOATING CTA -->
   <div class="floating-cta" id="floatingCTA">
@@ -591,15 +619,90 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Form submit
+    // Form submit (contact section)
     function handleSubmit(e) {
       e.preventDefault();
       const nombre = document.getElementById('nombre').value;
       const whatsapp = document.getElementById('whatsapp').value;
-      const objetivo = document.getElementById('objetivo').value;
-      const body = `Nombre: ${nombre}%0AWhatsApp: ${whatsapp}%0AObjetivo: ${objetivo}`;
-      window.location.href = `mailto:joe@joecoachinglab.com?subject=Quiero empezar mi plan — ${encodeURIComponent(objetivo)}&body=${body}`;
+      const body = `Nombre: ${nombre}%0AWhatsApp: ${whatsapp}`;
+      window.location.href = `mailto:joe@joecoachinglab.com?subject=Quiero empezar mi plan&body=${body}`;
     }
+
+    // ── LEAD MODAL & VIDEO ──
+    const VIDEO_URL = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
+    const LS_KEY = 'jcl_lead';
+
+    const modalOverlay = document.getElementById('leadModal');
+    const modalClose   = document.getElementById('modalClose');
+    const leadForm     = document.getElementById('leadForm');
+    const videoHolder  = document.querySelector('.video-placeholder');
+
+    function openModal() {
+      modalOverlay.classList.add('open');
+      document.getElementById('modalNombre').focus();
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('open');
+    }
+
+    function embedVideo() {
+      const embed = document.createElement('div');
+      embed.className = 'video-embed';
+      embed.innerHTML = `<iframe src="${VIDEO_URL}" allow="autoplay; encrypted-media" allowfullscreen title="Video Joe Coaching Lab"></iframe>`;
+      videoHolder.replaceWith(embed);
+    }
+
+    // Click on video placeholder
+    videoHolder.addEventListener('click', () => {
+      const saved = localStorage.getItem(LS_KEY);
+      if (saved) {
+        embedVideo();
+      } else {
+        openModal();
+      }
+    });
+
+    // Close on overlay click (outside modal box)
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    // Close button
+    modalClose.addEventListener('click', closeModal);
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Lead form submit
+    leadForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nombre   = document.getElementById('modalNombre').value.trim();
+      const telefono = document.getElementById('modalTelefono').value.trim();
+      localStorage.setItem(LS_KEY, JSON.stringify({ nombre, telefono }));
+      closeModal();
+      embedVideo();
+    });
   </script>
+
+  <footer style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 900;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    text-align: center;
+    padding: 6px 0;
+    font-size: 11px;
+    color: #999;
+    pointer-events: none;
+  ">
+    Hecho con ❤️ por <a href="https://godsystem.vercel.app/" target="_blank" rel="noopener noreferrer" style="color: #999; text-decoration: underline; pointer-events: all;">God System B.R</a>
+  </footer>
 </body>
 </html>
