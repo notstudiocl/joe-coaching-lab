@@ -100,7 +100,7 @@ export default function Testimonios({ id = "testimonios" }: Props) {
                   if (!arrastrando.current) setAbierta(actual);
                 }}
                 aria-label={`Ver captura ${actual + 1} en grande`}
-                className="relative block w-full aspect-[9/16] rounded-2xl border border-white/8 bg-white/[0.03] overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B4D8]"
+                className="relative block w-full aspect-[4/5] rounded-2xl border border-white/8 bg-white/[0.03] overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B4D8]"
               >
                 <div className="absolute top-0 left-0 right-0 h-[2px] z-10 bg-gradient-to-r from-transparent via-[#00B4D8]/60 to-transparent" />
                 <AnimatePresence initial={false}>
@@ -171,7 +171,7 @@ export default function Testimonios({ id = "testimonios" }: Props) {
                   onClick={() => setActual(i)}
                   aria-label={`Mostrar captura ${i + 1}`}
                   aria-current={actual === i}
-                  className={`relative shrink-0 w-16 lg:w-auto aspect-[9/16] rounded-xl overflow-hidden border bg-white/[0.03] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B4D8] ${
+                  className={`relative shrink-0 w-16 lg:w-auto aspect-[4/5] rounded-xl overflow-hidden border bg-white/[0.03] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B4D8] ${
                     actual === i
                       ? "border-transparent ring-2 ring-[#00B4D8] ring-offset-2 ring-offset-[#0a0a0a] opacity-100"
                       : "border-white/8 opacity-45 hover:opacity-100"

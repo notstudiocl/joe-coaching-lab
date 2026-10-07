@@ -6,12 +6,28 @@ export interface Captura {
 }
 
 export const capturas: Captura[] = [
-  { src: "/testimonios/captura-1.svg", alt: "Captura de testimonio de ejemplo 1", ancho: 1080, alto: 1920 },
-  { src: "/testimonios/captura-2.svg", alt: "Captura de testimonio de ejemplo 2", ancho: 1080, alto: 1920 },
-  { src: "/testimonios/captura-3.svg", alt: "Captura de testimonio de ejemplo 3", ancho: 1080, alto: 1920 },
-  { src: "/testimonios/captura-4.svg", alt: "Captura de testimonio de ejemplo 4", ancho: 1080, alto: 1350 },
-  { src: "/testimonios/captura-5.svg", alt: "Captura de testimonio de ejemplo 5", ancho: 1080, alto: 1920 },
-  { src: "/testimonios/captura-6.svg", alt: "Captura de testimonio de ejemplo 6", ancho: 1080, alto: 1920 },
-  { src: "/testimonios/captura-7.svg", alt: "Captura de testimonio de ejemplo 7", ancho: 1080, alto: 1350 },
-  { src: "/testimonios/captura-8.svg", alt: "Captura de testimonio de ejemplo 8", ancho: 1080, alto: 1920 },
+  {
+    src: "/testimonios/testimonio-1.jpg",
+    alt: "Mensaje de un alumno: llevaba años entrenando sin asesoría y estancado; con el proceso dejó de perder el tiempo y aprendió muchísimo.",
+    ancho: 1140,
+    alto: 1600,
+  },
+  {
+    src: "/testimonios/testimonio-2.jpg",
+    alt: "Mensaje de un alumno: temía que el déficit lo dejara fatigado, pero lleva dos meses y medio y le ha resultado llevadero, y controla mejor la ansiedad por lo dulce.",
+    ancho: 1170,
+    alto: 1389,
+  },
+  {
+    src: "/testimonios/testimonio-3.jpg",
+    alt: "Mensaje de un alumno: destaca el trabajo en la mentalidad y cómo el entrenamiento se adaptó a su capacidad física y mental.",
+    ancho: 1098,
+    alto: 1600,
+  },
+  {
+    src: "/testimonios/testimonio-4.jpg",
+    alt: "Mensaje de un alumno: aprendió a llevar el proceso de forma más amigable y a no frustrarse después de un mal entreno o de salirse de la dieta.",
+    ancho: 1170,
+    alto: 846,
+  },
 ];
