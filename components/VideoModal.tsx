@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { contarDigitos, enviarLead } from "@/lib/enviarLead";
 
 interface Props {
   isOpen: boolean;
@@ -13,12 +14,11 @@ interface Props {
 interface FormValues {
   nombre: string;
   telefono: string;
+  empresa: string;
 }
 
-const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbzPRUX1jsCyQpRLxYzhRuGoN1QK_JeSSGgTKsiXLda-m0P4cidbe4J39BgcUMD2iyh4wQ/exec";
-
 export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
+  const [errorEnvio, setErrorEnvio] = useState(false);
   const {
     register,
     handleSubmit,
@@ -47,14 +47,14 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const onSubmit: SubmitHandler<FormValues> = async ({ nombre, telefono }) => {
-    await fetch(GAS_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, whatsapp: telefono }),
-    });
-    onSuccess();
+  const onSubmit: SubmitHandler<FormValues> = async ({ nombre, telefono, empresa }) => {
+    setErrorEnvio(false);
+    try {
+      await enviarLead({ nombre, whatsapp: telefono, origen: "Video", empresa });
+      onSuccess();
+    } catch {
+      setErrorEnvio(true);
+    }
   };
 
   return (
@@ -142,13 +142,33 @@ export default function VideoModal({ isOpen, onClose, onSuccess }: Props) {
                   type="tel"
                   placeholder="+569 XXXX XXXX"
                   autoComplete="tel"
-                  {...register("telefono", { required: "El WhatsApp es obligatorio" })}
+                  {...register("telefono", {
+                    required: "El WhatsApp es obligatorio",
+                    validate: (valor) =>
+                      (contarDigitos(valor) >= 8 && contarDigitos(valor) <= 15) ||
+                      "Revisa el número, por ejemplo +569 1234 5678",
+                  })}
                   className="w-full bg-white/5 border border-white/10 focus:border-[#00B4D8] text-white text-[15px] placeholder-white/20 rounded-xl px-4 py-3.5 outline-none transition-colors duration-200"
                 />
                 {errors.telefono && (
                   <p className="mt-1 text-[12px] text-red-400">{errors.telefono.message}</p>
                 )}
               </div>
+
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                {...register("empresa")}
+              />
+
+              {errorEnvio && (
+                <p role="alert" className="text-center text-[13px] text-red-400">
+                  No pudimos enviar tus datos. Revisa tu conexión e inténtalo de nuevo.
+                </p>
+              )}
 
               <button
                 type="submit"
