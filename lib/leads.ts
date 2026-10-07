@@ -179,7 +179,7 @@ export async function avisarPorCorreo(lead: Lead, notionUrl: string | null) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Joe Coaching Lab <avisos@joecoachinglab.cl>",
+      from: "Joe Coaching Lab <leads@noreply.notstudio.cl>",
       to: [variable("AVISO_CORREO_PARA")],
       subject: `Nuevo lead: ${lead.nombre}`,
       html,
