@@ -6,27 +6,29 @@ export interface Rasgo {
 export const rasgosSi: Rasgo[] = [
   {
     titulo: "Estás comprometido/a",
-    descripcion: "Tienes ganas reales de mejorar tu físico, tu salud y tus hábitos.",
+    descripcion: "Quieres un cambio real, no una solución rápida. Buscas mejorar tu físico, hábitos y mentalidad.",
   },
   {
-    titulo: "Entrenas o quieres empezar",
-    descripcion: "Ya tienes experiencia o estás listo/a para arrancar con constancia.",
+    titulo: "Estás abierto/a a cambiar hábitos",
+    descripcion: "Sabes que el cambio no es solo entrenar: también es cómo comes, duermes y te organizas.",
   },
   {
-    titulo: "Eres constante",
-    descripcion: "Sabes que los resultados toman tiempo y estás dispuesto/a a sostener el esfuerzo.",
+    titulo: "Buscas un plan hecho para ti",
+    descripcion: "No quieres una rutina genérica, quieres algo adaptado a tu horario, gustos y estilo de vida.",
+  },
+  {
+    titulo: "Valoras un seguimiento cercano",
+    descripcion: "Quieres a alguien que revise tu avance y te oriente cada semana, no solo un PDF.",
+  },
+  {
+    titulo: "Quieres ser constante",
+    descripcion:
+      "Entiendes que los resultados se construyen semana a semana y estás dispuesto/a a sostener el proceso al menos 3 meses.",
   },
   {
     titulo: "Te interesa aprender",
-    descripcion: "Quieres entender el porqué de tu entrenamiento, tu nutrición y tu estilo de vida.",
-  },
-  {
-    titulo: "Te haces responsable",
-    descripcion: "Cumples lo que acordamos y buscas soluciones en vez de excusas.",
-  },
-  {
-    titulo: "Quieres un cambio real",
-    descripcion: "No buscas magia: quieres hábitos que te acompañen a largo plazo.",
+    descripcion:
+      "No solo quieres seguir un plan: quieres entender el porqué, para que tus resultados no dependan de mí para siempre.",
   },
 ];
 
