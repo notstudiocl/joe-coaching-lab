@@ -33,7 +33,7 @@ export default function Navbar() {
           <a href="#plan" className="hover:text-[#00B4D8] transition-colors">
             El Plan
           </a>
-          <a href="#exito" className="hover:text-[#00B4D8] transition-colors">
+          <a href="#testimonios" className="hover:text-[#00B4D8] transition-colors">
             Resultados
           </a>
           <a

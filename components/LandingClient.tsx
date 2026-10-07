@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Hero from "@/components/Hero";
 import Plan from "@/components/Plan";
+import Testimonios from "@/components/Testimonios";
+import ParaTi from "@/components/ParaTi";
 import Contacto from "@/components/Contacto";
 
 export default function LandingClient() {
@@ -12,6 +14,8 @@ export default function LandingClient() {
     <>
       <Hero videoUnlocked={videoUnlocked} onUnlock={() => setVideoUnlocked(true)} />
       <Plan />
+      <Testimonios />
+      <ParaTi />
       <Contacto />
     </>
   );
